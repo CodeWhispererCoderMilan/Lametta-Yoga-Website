@@ -17,7 +17,7 @@ const t = {
     { label: "MY STORY", href: "#philosophie" },
     { label: "CLASSES", href: "#klassen" },
     { label: "REVIEWS", href: "#stimmen" },
-    { label: "BOOK", href: "#buchen" },
+    { label: "BOOKING", href: "#buchen" },
   ],
 };
 
