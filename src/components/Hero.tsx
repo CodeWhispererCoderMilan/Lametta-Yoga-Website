@@ -6,9 +6,9 @@ const cta = {
   en: "Book a class",
 };
 
-export default function Hero({ lang }: { lang: Lang }) {
+export default function Hero({ lang, burgerLayout }: { lang: Lang; burgerLayout?: boolean }) {
   return (
-    <section id="hoi" className="relative w-full h-[85vh] md:h-[70vh] overflow-hidden">
+    <section id="hoi" className="relative w-full h-[100vh] md:h-[90vh] overflow-hidden">
       <Image
         src="/images/realhi.jpg"
         alt="La Metta Yoga"
@@ -17,7 +17,13 @@ export default function Hero({ lang }: { lang: Lang }) {
         priority
       />
       <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-black/10 to-transparent" />
-      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 md:bottom-auto md:top-1/3 md:left-auto md:translate-x-0 md:right-[25%] z-10">
+      <div
+        className="absolute z-10"
+        style={burgerLayout
+          ? { bottom: "2.5rem", left: "50%", transform: "translateX(-50%)" }
+          : { top: "50%", right: "20%", transform: "translateY(-50%)" }
+        }
+      >
         <a
           href="#buchen"
           className="inline-block whitespace-nowrap px-16 py-6 bg-[var(--pink)] text-white uppercase tracking-widest text-xl rounded-full hover:opacity-90 transition-opacity font-bold"

@@ -108,10 +108,12 @@ export default function Nav({
   lang,
   visible,
   onBurgerChange,
+  onBurgerLayout,
 }: {
   lang: Lang;
   visible: boolean;
   onBurgerChange?: (open: boolean) => void;
+  onBurgerLayout?: (isBurger: boolean) => void;
 }) {
   const [state, setState] = useState<1 | 2 | 3 | 4 | 5>(1);
   const [open, setOpen] = useState(false);
@@ -133,13 +135,15 @@ export default function Nav({
     function check() {
       const avail = document.documentElement.clientWidth - CHROME;
       const [w1, w2, w3, w4] = [p1, p2, p3, p4].map(r => r.current?.offsetWidth ?? Infinity);
-      setState(
+      const next = (
         w1 <= avail ? 1
         : w2 <= avail ? 2
         : w3 <= avail ? 3
         : w4 <= avail ? 4
         : 5
-      );
+      ) as 1 | 2 | 3 | 4 | 5;
+      setState(next);
+      onBurgerLayout?.(next === 5);
     }
     const ro = new ResizeObserver(check);
     ro.observe(document.documentElement);
@@ -216,7 +220,7 @@ export default function Nav({
         className="fixed top-0 left-0 right-0 z-50 bg-[var(--warm-beige)] transition-transform duration-300"
         style={{ transform: visible ? "translateY(0)" : "translateY(-100%)" }}
       >
-        <div className="w-full px-8 min-h-[93px] flex items-center gap-4">
+        <div className="w-full pl-8 pr-2 min-h-[93px] flex items-center gap-4">
           {/* Logo */}
           <a href="#hoi" className="shrink-0">
             <Image src="/images/Logo/Lamettayoga.svg" alt="La Metta Yoga" width={90} height={90} className="h-[60px] w-auto" />

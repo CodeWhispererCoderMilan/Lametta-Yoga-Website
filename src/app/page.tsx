@@ -15,6 +15,7 @@ export default function Home() {
   const [lang, setLang] = useState<Lang>("de");
   const [navVisible, setNavVisible] = useState(true);
   const [burgerOpen, setBurgerOpen] = useState(false);
+  const [burgerLayout, setBurgerLayout] = useState(false);
   const lastScrollY = useRef(0);
 
   useEffect(() => {
@@ -35,10 +36,10 @@ export default function Home() {
 
   return (
     <>
-      <Nav lang={lang} visible={navVisible} onBurgerChange={setBurgerOpen} />
+      <Nav lang={lang} visible={navVisible} onBurgerChange={setBurgerOpen} onBurgerLayout={setBurgerLayout} />
       <LangToggle lang={lang} setLang={setLang} navVisible={navVisible} burgerOpen={burgerOpen} />
       <main>
-        <Hero lang={lang} />
+        <Hero lang={lang} burgerLayout={burgerLayout} />
         <Philosophy lang={lang} />
         <Classes lang={lang} />
         <Testimonials lang={lang} />
