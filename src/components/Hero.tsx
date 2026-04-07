@@ -17,10 +17,10 @@ export default function Hero({ lang }: { lang: Lang }) {
         priority
       />
       <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-black/10 to-transparent" />
-      <div className="absolute top-1/3 right-[25%] z-10">
+      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 md:bottom-auto md:top-1/3 md:left-auto md:translate-x-0 md:right-[25%] z-10">
         <a
           href="#buchen"
-          className="inline-block px-16 py-6 bg-[var(--pink)] text-white uppercase tracking-widest text-xl rounded-full hover:opacity-90 transition-opacity font-bold"
+          className="inline-block whitespace-nowrap px-16 py-6 bg-[var(--pink)] text-white uppercase tracking-widest text-xl rounded-full hover:opacity-90 transition-opacity font-bold"
         >
           {cta[lang]}
         </a>
