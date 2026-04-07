@@ -32,7 +32,6 @@ export default function Booking({ lang }: { lang: Lang }) {
           <iframe
             id="schedulista-widget-00"
             src="https://www.schedulista.com/schedule/lamettayoga?mode=widget"
-            allowtransparency="true"
             frameBorder={0}
             scrolling="no"
             width="100%"
