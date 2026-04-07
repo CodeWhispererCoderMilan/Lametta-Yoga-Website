@@ -63,7 +63,7 @@ export default function LangToggle({
   const prevNavH    = useRef(93);
   const isHovering  = useRef(false);
   const stayOut     = useRef(true);
-  const stayTimer   = useRef<ReturnType<typeof setTimeout>>();
+  const stayTimer   = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
 
   // Track navbar height
   useEffect(() => {
