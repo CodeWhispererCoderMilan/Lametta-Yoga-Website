@@ -11,6 +11,12 @@ const bricolage = Bricolage_Grotesque({
 export const metadata: Metadata = {
   title: "La Metta Yoga",
   description: "Yoga in Zürich – in-person & online classes with Stefanie",
+  openGraph: {
+    title: "La Metta Yoga",
+    description: "Yoga in Zürich – in-person & online classes with Stefanie",
+    images: ["/images/about_me.jpg"],
+    type: "website",
+  },
 };
 
 export default function RootLayout({
