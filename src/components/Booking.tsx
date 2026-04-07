@@ -2,7 +2,7 @@
 
 import { Lang } from "@/types";
 
-const headings = { de: "BUCHEN", en: "BOOK" };
+const headings = { de: "BUCHEN", en: "BOOKING" };
 
 export default function Booking({ lang }: { lang: Lang }) {
   return (
