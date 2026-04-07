@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useEffect, useRef } from "react";
 import { Lang } from "@/types";
 
 function FlagDE() {
@@ -34,25 +35,107 @@ function FlagGB() {
   );
 }
 
+const SIZE   = 48;  // circle diameter
+const GAP    = 12;  // gap below navbar when fully out
+const SLIVER = 6;   // px visible below navbar when hidden (for hover target)
+
+const topFor = (navH: number, vis: "hidden" | "peek" | "out") => ({
+  hidden: navH - SIZE + SLIVER,
+  peek:   navH - SIZE / 2,
+  out:    navH + GAP,
+}[vis]);
+
 export default function LangToggle({
   lang,
   setLang,
   navVisible,
+  burgerOpen,
 }: {
   lang: Lang;
   setLang: (l: Lang) => void;
   navVisible: boolean;
+  burgerOpen: boolean;
 }) {
-  const toggle = () => setLang(lang === "de" ? "en" : "de");
+  const [navH, setNavH]     = useState(93);
+  const [topDur, setTopDur] = useState("0s");
+  const [vis, setVis]       = useState<"hidden" | "peek" | "out">("out");
+
+  const prevNavH    = useRef(93);
+  const isHovering  = useRef(false);
+  const stayOut     = useRef(true);
+  const stayTimer   = useRef<ReturnType<typeof setTimeout>>();
+
+  // Track navbar height
+  useEffect(() => {
+    const header = document.querySelector("header");
+    if (!header) return;
+
+    const initial = Math.round(header.getBoundingClientRect().height);
+    setNavH(initial);
+    prevNavH.current = initial;
+    requestAnimationFrame(() => setTopDur("0.15s"));
+
+    // Start fully visible, retract after 3 s
+    stayTimer.current = setTimeout(() => {
+      stayOut.current = false;
+      if (!isHovering.current) setVis("hidden");
+    }, 3000);
+
+    const ro = new ResizeObserver(([entry]) => {
+      const h = Math.round(entry.contentRect.height);
+      if (h === prevNavH.current) return;
+      const growing = h > prevNavH.current;
+      setTopDur(growing ? "0.45s" : "0.15s");
+      prevNavH.current = h;
+      setNavH(h);
+      if (growing) setTimeout(() => setTopDur("0.15s"), 500);
+    });
+
+    ro.observe(header);
+    return () => ro.disconnect();
+  }, []);
+
+  // Come fully out when burger dropdown opens, retract when it closes
+  useEffect(() => {
+    if (burgerOpen) {
+      setVis("out");
+    } else {
+      if (!isHovering.current && !stayOut.current) setVis("hidden");
+    }
+  }, [burgerOpen]);
+
+  const retract = () => {
+    if (!stayOut.current && !burgerOpen) setVis("hidden");
+  };
+
+  const top = !navVisible ? -(SIZE + 20) : topFor(navH, vis);
 
   return (
     <button
-      onClick={toggle}
+      onMouseEnter={() => {
+        isHovering.current = true;
+        if (vis !== "out") setVis("peek");
+      }}
+      onMouseLeave={() => {
+        isHovering.current = false;
+        retract();
+      }}
+      onClick={() => {
+        setLang(lang === "de" ? "en" : "de");
+        setVis("out");
+        // Stay fully out for 1.2 s after clicking before retracting
+        stayOut.current = true;
+        clearTimeout(stayTimer.current);
+        stayTimer.current = setTimeout(() => {
+          stayOut.current = false;
+          if (!isHovering.current && !burgerOpen) setVis("hidden");
+        }, 1200);
+      }}
       title={lang === "de" ? "Switch to English" : "Wechsle zu Deutsch"}
-      className="fixed top-[105px] right-6 z-40 w-12 h-12 rounded-full overflow-hidden shadow-lg ring-2 ring-white/50 hover:scale-110 hover:ring-white/80 active:scale-90"
+      className="fixed right-6 z-40 w-12 h-12 rounded-full overflow-hidden shadow-lg ring-2 ring-white/50 hover:ring-white/80"
       style={{
-        transform: navVisible ? "translateY(0)" : "translateY(-160px)",
-        transition: "transform 0.3s ease, scale 0.15s ease",
+        top,
+        transition: `top ${topDur} ease`,
       }}
     >
       {lang === "de" ? <FlagDE /> : <FlagGB />}

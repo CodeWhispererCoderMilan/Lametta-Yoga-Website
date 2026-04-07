@@ -1,10 +1,19 @@
 "use client";
 
+import { useEffect } from "react";
 import { Lang } from "@/types";
 
 const headings = { de: "BUCHEN", en: "BOOKING" };
 
 export default function Booking({ lang }: { lang: Lang }) {
+  useEffect(() => {
+    if (document.getElementById("schedulista-widget-script-00")) return;
+    const script = document.createElement("script");
+    script.id = "schedulista-widget-script-00";
+    script.src = "https://www.schedulista.com/schedule/lamettayoga/widget.js";
+    document.body.appendChild(script);
+  }, []);
+
   return (
     <section id="buchen" className="pb-28 bg-black overflow-hidden">
 
@@ -23,16 +32,11 @@ export default function Booking({ lang }: { lang: Lang }) {
           <iframe
             id="schedulista-widget-00"
             src="https://www.schedulista.com/schedule/lamettayoga?mode=widget"
-            allowTransparency={true}
+            allowtransparency="true"
             frameBorder={0}
             scrolling="no"
             width="100%"
             height="900px"
-          />
-          <script
-            id="schedulista-widget-script-00"
-            type="text/javascript"
-            src="https://www.schedulista.com/schedule/lamettayoga/widget.js"
           />
         </div>
       </div>
