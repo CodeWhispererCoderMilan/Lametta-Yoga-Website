@@ -28,7 +28,6 @@ export default function Footer() {
   return (
     <footer className="bg-[var(--warm-beige)] py-5">
       <div className="w-full px-8 flex items-center">
-        <div className="flex-1" />
         <Image
           src="/images/Logo/Lamettayoga.svg"
           alt="La Metta Yoga"

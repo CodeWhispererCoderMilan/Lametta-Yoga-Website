@@ -119,6 +119,17 @@ export default function Nav({ lang, visible }: { lang: Lang; visible: boolean })
               {link.label}
             </a>
           ))}
+          <div className="flex items-center gap-6 pt-4 border-t border-[var(--foreground)]/10">
+            <a href="https://www.youtube.com/@lamettayoga" target="_blank" rel="noopener noreferrer" className="text-[var(--foreground)] hover:text-[var(--pink)] transition-colors" aria-label="YouTube">
+              <YouTubeIcon />
+            </a>
+            <a href="https://www.instagram.com/lamettayoga" target="_blank" rel="noopener noreferrer" className="text-[var(--foreground)] hover:text-[var(--pink)] transition-colors" aria-label="Instagram">
+              <InstagramIcon />
+            </a>
+            <a href="https://www.tiktok.com/@lamettayoga" target="_blank" rel="noopener noreferrer" className="text-[var(--foreground)] hover:text-[var(--pink)] transition-colors" aria-label="TikTok">
+              <TikTokIcon />
+            </a>
+          </div>
         </nav>
       )}
     </header>
