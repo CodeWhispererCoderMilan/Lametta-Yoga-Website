@@ -16,7 +16,7 @@ const t = {
     { label: "HI", href: "#hoi" },
     { label: "MY STORY", href: "#philosophie" },
     { label: "CLASSES", href: "#klassen" },
-    { label: "TESTIMONIALS", href: "#stimmen" },
+    { label: "REVIEWS", href: "#stimmen" },
     { label: "BOOK", href: "#buchen" },
   ],
 };
