@@ -7,14 +7,14 @@ import { Lang } from "@/types";
 const t = {
   de: [
     { label: "HOI", href: "#hoi" },
-    { label: "MEINE STORY", href: "#philosophie" },
+    { label: "STORY", href: "#philosophie" },
     { label: "KLASSEN", href: "#klassen" },
     { label: "STIMMEN", href: "#stimmen" },
     { label: "BUCHEN", href: "#buchen" },
   ],
   en: [
     { label: "HI", href: "#hoi" },
-    { label: "MY STORY", href: "#philosophie" },
+    { label: "STORY", href: "#philosophie" },
     { label: "CLASSES", href: "#klassen" },
     { label: "REVIEWS", href: "#stimmen" },
     { label: "BOOKING", href: "#buchen" },
